@@ -1,15 +1,22 @@
-const express = require('express');
-const path = require('path');
+import express from "express";
+import path from "path";
+import { fileURLToPath } from 'url';
 
 const app = express();
-const PORT = 3000;
+const port = process.env.PORT || 3000;
 
-// Servirea fișierelor statice din folderul 'public'
-app.use(express.static(path.join(__dirname, 'public')));
+// Necesare pentru __dirname în ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// Servirea fișierelor Monaco Editor
-app.use('/vs', express.static(path.join(__dirname, 'node_modules/monaco-editor/min/vs')));
+// 👉 Servește fișierele statice din folderul public
+app.use(express.static(path.join(__dirname, "public")));
 
-app.listen(PORT, () => {
-  console.log(`Serverul rulează la: http://localhost:${PORT}`);
+// 🔁 Redirecționează toate cererile către index.html (SPA)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+app.listen(port, () => {
+  console.log(`Server pornit pe http://localhost:${port}`);
 });
