@@ -1,0 +1,177 @@
+:root {
+    --bg: #111;
+    --text: #f0f0f0;
+    --panel: #1e1e1e;
+    --border: #333;
+    --shadow: rgba(0, 0, 0, 0.6);
+    --preview-bg: #f8f8f8; /* alb moale în dark */
+    --highlight: #2d2d2d;
+    --tab-active: dodgerblue;
+  }
+  
+  body.light {
+    --bg: #f5f5f5; /* alb cald */
+    --text: #111;
+    --panel: #fafafa; /* mai soft decât #fff */
+    --border: #ccc;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --preview-bg: #fbfbfb; /* gri albicios moale */
+    --highlight: #ececec;
+    --tab-active: #007acc;
+  }
+  
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .topbar {
+    display: flex;
+    gap: 10px;
+    padding: 10px 16px;
+    background-color: var(--panel);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 6px var(--shadow);
+    z-index: 10;
+  }
+  
+  .topbar button {
+    padding: 8px 16px;
+    background-color: var(--highlight);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .topbar button:hover {
+    background-color: var(--tab-active);
+    color: white;
+  }
+  
+  .main {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    min-height: 0;
+    background: var(--bg);
+    position: relative;
+  }
+  
+  .editor-side,
+  .preview-side {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--panel);
+    padding: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    transition: width 0.2s ease;
+  }
+  
+  .editor-side {
+    width: 50%;
+    border-right: 1px solid var(--border);
+  }
+  
+  .preview-side {
+    width: 50%;
+    border-left: 1px solid var(--border);
+    background-color: var(--panel);
+    box-shadow: inset 0 0 4px var(--shadow);
+  }
+  
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    background-color: var(--panel);
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+  }
+  
+  .tab:hover {
+    background-color: var(--highlight);
+  }
+  
+  .tab.active {
+    border-bottom: 3px solid var(--tab-active);
+    background-color: var(--highlight);
+  }
+  
+  #editor-container > div {
+    height: 100%;
+    flex: 1;
+    border-radius: 6px;
+  }
+  
+  #editor-container {
+    flex: 1;
+    margin-top: 10px;
+  }
+  
+  .preview-header {
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid var(--border);
+    background-color: var(--panel);
+    color: var(--text);
+  }
+  
+  #preview {
+    flex: 1;
+    width: 100%;
+    border: none;
+    background-color: var(--preview-bg); /* alb fin, non-orbitor */
+    border-radius: 4px;
+    box-shadow: inset 0 0 6px var(--shadow);
+  }
+  
+  /* Resizer */
+  .resizer {
+    width: 6px;
+    background-color: var(--border);
+    cursor: col-resize;
+    z-index: 5;
+    position: relative;
+    transition: background 0.2s;
+  }
+  
+  .resizer:hover {
+    background-color: var(--tab-active);
+  }
+  
+  /* Mobile */
+  @media (max-width: 768px) {
+    .main {
+      flex-direction: column;
+    }
+  
+    .editor-side, .preview-side {
+      width: 100% !important;
+      height: 50%;
+    }
+  
+    .resizer {
+      height: 5px;
+      width: 100%;
+      cursor: row-resize;
+    }
+  }
+  

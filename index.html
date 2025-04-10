@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Live Code Editor</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    self.MonacoEnvironment = {
+      getWorkerUrl: function (_, label) {
+        return '/vs/base/worker/workerMain.js';
+      }
+    };
+
+    window.require = {
+      paths: { vs: '/vs' }
+    };
+  </script>
+  <script src="/vs/loader.js"></script>
+</head>
+<body class="dark">
+  <div class="topbar">
+    <button onclick="startNewProject()">New</button>
+    <button onclick="donate()">Suport Me!</button>
+    <button onclick="toggleTheme()">Switch Theme</button>
+  </div>
+
+  <div class="main">
+    <div class="editor-side">
+      <div class="tabs">
+        <button class="tab active" data-lang="html">HTML</button>
+        <button class="tab" data-lang="css">CSS</button>
+        <button class="tab" data-lang="js">JS</button>
+      </div>
+      <div id="editor-container"></div>
+    </div>
+
+    <div class="resizer" id="resizer"></div>
+
+    <div class="preview-side">
+      <div class="preview-header">Site Preview</div>
+      <iframe id="preview"></iframe>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
